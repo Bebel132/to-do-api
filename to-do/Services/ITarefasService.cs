@@ -1,5 +1,4 @@
-﻿using to_do.Context;
-using to_do.Models;
+﻿using to_do.Models;
 
 namespace to_do.Services
 {

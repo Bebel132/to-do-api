@@ -11,22 +11,35 @@ namespace to_do.Context
         }
 
         public DbSet<Tarefa> Tarefas { get; set; }
+		public DbSet<Categoria> Categorias { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Tarefa>().HasData(
+            modelBuilder.Entity<Categoria>()
+                .HasMany(c => c.Tarefas)
+                .WithOne(t => t.Categoria)
+                .HasForeignKey(t => t.CategoriaId);
+
+            modelBuilder.Entity<Categoria>().HasData(
+				new Categoria { Id = 1, Nome = "Estudos" },
+				new Categoria { Id = 2, Nome = "Trabalho" }
+			);
+
+			modelBuilder.Entity<Tarefa>().HasData(
                     new Tarefa { 
                         Id = 1, 
-                        Titulo = "estudar", 
+                        Titulo = "trabalhar", 
                         Desc = "", 
-                        Status = true
+                        Status = true,
+                        CategoriaId = 1
                     }, 
                     new Tarefa
                     {
                         Id = 2,
                         Titulo = "tarefa - ismd",
                         Desc = "tarefa aleatória n 10",
-                        Status = true
+                        Status = true,
+                        CategoriaId = 2
                     }
                 );
         }

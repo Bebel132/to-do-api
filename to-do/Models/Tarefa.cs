@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace to_do.Models
 {
@@ -15,5 +17,10 @@ namespace to_do.Models
 
         [Required]
         public required bool Status { get; set; }
+
+        public int CategoriaId { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public Categoria? Categoria { get; set; }
     }
 }
